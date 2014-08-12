@@ -247,8 +247,8 @@ module PlatformClockP {
      */
     TA0CTL = TACLR;     			// also zeros out control bits
     TA1CTL = TACLR;
-    TA0CTL = TASSEL__SMCLK  | MC__CONTINUOUS;	// SMCLK/1, continuous
-    TA1CTL = TASSEL__ACLK   | MC__CONTINUOUS;	//  ACLK/1, continuous
+    TA0CTL = TASSEL__SMCLK  | MC_2;	// SMCLK/1, continuous
+    TA1CTL = TASSEL__ACLK   | MC_2;	//  ACLK/1, continuous
 
     /*
      * wait for about a sec for the 32KHz to come up and
@@ -508,13 +508,13 @@ module PlatformClockP {
     /*
      * TA0 clocked off SMCLK off DCO, /8, 1us tick
      */
-    TA0CTL = TASSEL__SMCLK | ID__8 | TACLR | MC__CONTINUOUS | TAIE;
+    TA0CTL = TASSEL__SMCLK | ID__8 | TACLR | MC_2 | TAIE;
     TA0R = 0;
 
     /*
      * TA1 clocked off XT1, used for TMilli, 32KiHz.
      */
-    TA1CTL = TASSEL__ACLK | TACLR | MC__CONTINUOUS | TAIE;
+    TA1CTL = TASSEL__ACLK | TACLR | MC_2 | TAIE;
     TA1R = 0;
 
     return SUCCESS;
