@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2019 Eric B. Decker
+ * Copyright (c) 2017, 2019, 2021 Eric B. Decker
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,15 +39,9 @@
  *
  * @author Eric B. Decker <cire831@gmail.com>
  *
- * chip follows the following SPI protocol:
- *
- * o Assert CS
- * o first byte is address.
- *   An R bit (when set do a read, else write)
- *   The M bit (multiple), auto increment register
- *   6 bits of address, the register being accessed.
- * o next byte is read or write
- * o deassert CS
+ * Different ST chips implement slightly different register protocols.
+ * As of 2021 the most modern (ie. lsm6dsox) implement a 7 bit register
+ * address and a R/_W bit.  Auto increment is a bit in a control register.
  *
  * The actual underlying driver and hardware implementation determines
  * how this all works.  The details won't effect this interface.
@@ -66,8 +60,8 @@ interface SpiReg {
    *		*buf	 pointer to where to store incoming bytes
    *            len      how many bytes to read.
    */
-  command void read(uint8_t reg_addr, uint8_t *buf, uint8_t len);
-  command void readMultiple(uint8_t reg_addr, uint8_t *buf, uint8_t len);
+  command void read(uint8_t reg_addr, uint8_t *buf, uint16_t len);
+  command void readMultiple(uint8_t reg_addr, uint8_t *buf, uint16_t len);
 
   /*
    * readOne    read one byte from the specified address.
@@ -87,8 +81,8 @@ interface SpiReg {
    *		*buf     pointer to where to stash incoming bytes
    *            len      how many bytes to write.
    */
-  command void write(uint8_t reg_addr, uint8_t *buf, uint8_t len);
-  command void writeMultiple(uint8_t reg_addr, uint8_t *buf, uint8_t len);
+  command void write(uint8_t reg_addr, uint8_t *buf, uint16_t len);
+  command void writeMultiple(uint8_t reg_addr, uint8_t *buf, uint16_t len);
 
   /*
    * writeOne   write one byte to the specified address.
