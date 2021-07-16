@@ -67,7 +67,7 @@ set $p7 =(DIO_PORT_Odd_Interruptable_Type  *)  $p7b
 set $p8 =(DIO_PORT_Even_Interruptable_Type  *) $p7b
 set $p9 =(DIO_PORT_Odd_Interruptable_Type  *)  $p9b
 set $p10=(DIO_PORT_Even_Interruptable_Type  *) $p9b
-set $pj =(DIO_PORT_Odd_Interruptable_Type  *)  $pjb
+set $pj =(DIO_PORT_Not_Interruptable_Type  *)  $pjb
 
 # PMAP
 set $pmap=(PMAP_COMMON_Type*)($periph +0x00005000)
@@ -651,6 +651,7 @@ __p_port $p7b 1 7
 __p_port $p7b 0 8
 __p_port $p9b 1 9
 __p_port $p9b 0 0d10
+__p_port $pjb 2 0
 end
 document ports
 display h/w ports
